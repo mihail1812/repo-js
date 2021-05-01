@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        'use strict';
+        
+        // 1.1
+
+        function Product(name, price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        Product.prototype.make25PercentDiscount = function() {
+            this.price = this.price - this.price * 0.25;
+        }
+        
+        let product = new Product("Gun", 100);
+        product.make25PercentDiscount();
+        alert('Стоимость ' + product.name + ' со скидкой: ' + product.price);
+
+        // 1.2
+
+        function Post(autor, text, date){
+            this.autor = autor;
+            this.text = text;
+            this.date = date;
+        }
+        Post.prototype.edit = function(textEdit) {
+            this.text = textEdit;
+        }
+
+        function AttachedPost(autor, text, date){
+            Post.call(this, autor, text, date);
+            this.highlighted = false;
+        }
+        AttachedPost.prototype = Object.create(Post.prototype);
+        AttachedPost.prototype.constructor = AttachedPost;
+
+        AttachedPost.prototype.makeTextHighlighted = function(){
+            this.highlighted = true;
+        }
+        
+        let post = new AttachedPost('Andrey', 'hi, friends!', '27.04.2021');
+        post.makeTextHighlighted();
+        function message(){
+            alert(post.date + ', ' + post.autor + ' writes: ' + post.text);
+        }
+        message();
+
+        post.edit('hi, people!');
+        message();
+        console.log(post.highlighted);
+    </script>
+</body>
+</html>

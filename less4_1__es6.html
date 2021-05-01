@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        'use strict';
+
+        // 1.1
+
+        class Product {
+            constructor(name, price) {
+                this.name = name;
+                this.price = price;
+            }
+            make25PercentDiscount() {
+                this.price = this.price - this.price * 0.25;
+            }
+        }
+        let product = new Product('Gun_TT', 200);
+        product.make25PercentDiscount();
+        alert('Стоимость ' + product.name + ' со скидкой: ' + product.price);
+
+        // 1.2
+
+        class Post {
+            constructor (autor, text, date) {
+                this.autor = autor;
+                this.text = text;
+                this.date = date; 
+            }
+
+            edit(textEdit){
+                this.text = textEdit;
+            }
+        }
+        class AttachedPost extends Post{
+            constructor(autor, text, date) {
+                super(autor, text, date);
+                this.highlighted = false;
+            }
+            makeTextHighlighted(){
+                this.highlighted = true;
+            }
+        }
+
+        let post = new AttachedPost('Андрей', 'Привет, друзья!', '27.04.2021');
+        post.makeTextHighlighted();
+        function message(){
+            alert(post.date + ', ' + post.autor + ' написал: ' + post.text);
+        }
+        message();
+
+        post.edit('Привет, народ!');
+        message();
+        console.log(post.highlighted);
+    </script>
+</body>
+</html>
